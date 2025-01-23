@@ -1,0 +1,42 @@
+Generate Parentheses
+
+You are given an integer n. Return all well-formed parentheses strings that you can generate with n pairs of parentheses.
+Example 1:
+Input: n = 1
+Output: ["()"]
+
+Example 2:
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+You may return the answer in any order.
+Constraints:
+1 <= n <= 7
+
+
+Solution - 
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        # () ()() (())
+        # ()
+        stack = []
+        res = []
+
+        def backtrack(openn , closedn):
+
+            if openn == n == closedn:
+                res.append("".join(stack))
+                return
+
+            if openn < n:
+                stack.append("(")
+                backtrack(openn+1, closedn)
+                stack.pop()
+        
+            if closedn < openn:
+                stack.append(")")
+                backtrack(openn, closedn+1)
+                stack.pop()
+
+        backtrack(0,0)
+        return res 
